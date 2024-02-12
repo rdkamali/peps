@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>PEP 739 – Static description file for Python installations | peps.python.org</title>
+    <link rel="shortcut icon" href="../_static/py.png">
+    <link rel="canonical" href="https://peps.python.org/pep-0739/">
+    <link rel="stylesheet" href="../_static/style.css" type="text/css">
+    <link rel="stylesheet" href="../_static/mq.css" type="text/css">
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" media="(prefers-color-scheme: light)" id="pyg-light">
+    <link rel="stylesheet" href="../_static/pygments_dark.css" type="text/css" media="(prefers-color-scheme: dark)" id="pyg-dark">
+    <link rel="alternate" type="application/rss+xml" title="Latest PEPs" href="https://peps.python.org/peps.rss">
+    <meta name="description" content="Python Enhancement Proposals (PEPs)">
+</head>
+<body>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-sun-half" viewBox="0 0 24 24" pointer-events="all">
+    <title>Following system colour scheme</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 3v18m0-12l4.65-4.65M12 14.3l7.37-7.37M12 19.6l8.85-8.85"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24" pointer-events="all">
+    <title>Selected dark colour scheme</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24" pointer-events="all">
+    <title>Selected light colour scheme</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+</svg>
+    <script>
+
+        document.documentElement.dataset.colour_scheme = localStorage.getItem("colour_scheme") || "auto"
+    </script>
+    <section id="pep-page-section">
+        <header>
+            <h1>Python Enhancement Proposals</h1>
+            <ul class="breadcrumbs">
+                <li><a href="https://www.python.org/" title="The Python Programming Language">Python</a> &raquo; </li>
+                <li><a href="../pep-0000/">PEP Index</a> &raquo; </li>
+                <li>PEP 739</li>
+            </ul>
+            <button id="colour-scheme-cycler" onClick="setColourScheme(nextColourScheme())">
+                <svg aria-hidden="true" class="colour-scheme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+                <svg aria-hidden="true" class="colour-scheme-icon-when-dark"><use href="#svg-moon"></use></svg>
+                <svg aria-hidden="true" class="colour-scheme-icon-when-light"><use href="#svg-sun"></use></svg>
+                <span class="visually-hidden">Toggle light / dark / auto colour theme</span>
+            </button>
+        </header>
+        <article>
+            <section id="pep-content">
+<h1 class="page-title">PEP 739 – Static description file for Python installations</h1>
+<dl class="rfc2822 field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd">Filipe Laíns &lt;lains&#32;&#97;t&#32;riseup.net&gt;</dd>
+<dt class="field-even">PEP-Delegate<span class="colon">:</span></dt>
+<dd class="field-even">Paul Moore &lt;p.f.moore&#32;&#97;t&#32;gmail.com&gt;</dd>
+<dt class="field-odd">Status<span class="colon">:</span></dt>
+<dd class="field-odd"><abbr title="Proposal under active discussion and revision">Draft</abbr></dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><abbr title="Normative PEP with a new feature for Python, implementation change for CPython or interoperability standard for the ecosystem">Standards Track</abbr></dd>
+<dt class="field-odd">Topic<span class="colon">:</span></dt>
+<dd class="field-odd"><a class="reference external" href="../topic/packaging/">Packaging</a></dd>
+<dt class="field-even">Created<span class="colon">:</span></dt>
+<dd class="field-even">19-Dec-2023</dd>
+<dt class="field-odd">Python-Version<span class="colon">:</span></dt>
+<dd class="field-odd">3.13</dd>
+</dl>
+<hr class="docutils" />
+<section id="contents">
+<details><summary>Table of Contents</summary><ul class="simple">
+<li><a class="reference internal" href="#abstract">Abstract</a></li>
+<li><a class="reference internal" href="#rationale">Rationale</a></li>
+<li><a class="reference internal" href="#scope">Scope</a></li>
+<li><a class="reference internal" href="#specification">Specification</a><ul>
+<li><a class="reference internal" href="#schema-version">schema_version</a></li>
+<li><a class="reference internal" href="#language">language</a><ul>
+<li><a class="reference internal" href="#version">version</a></li>
+<li><a class="reference internal" href="#version-parts">version_parts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementation">implementation</a><ul>
+<li><a class="reference internal" href="#name">name</a></li>
+<li><a class="reference internal" href="#implementation-specific-keys">Implementation-specific keys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#c-api">c_api</a></li>
+<li><a class="reference internal" href="#libpython">libpython</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#copyright">Copyright</a></li>
+</ul>
+</details></section>
+<section id="abstract">
+<h2><a class="toc-backref" href="#abstract" role="doc-backlink">Abstract</a></h2>
+<p>Introduce a standard format for a static description file to describe Python
+installations.</p>
+</section>
+<section id="rationale">
+<h2><a class="toc-backref" href="#rationale" role="doc-backlink">Rationale</a></h2>
+<p>When introspecting a Python installation, running code is often undesirable or
+impossible. Having a static description file makes various of Python
+installation details available without having to run the interpreter.</p>
+<p>This is helpful for use-cases such as cross-compilation, Python launchers, etc.</p>
+</section>
+<section id="scope">
+<h2><a class="toc-backref" href="#scope" role="doc-backlink">Scope</a></h2>
+<p>This PEP only defines a standard format for a file describing Python
+installations, distributing such files is out of scope.</p>
+<p>Python implementations may choose to include a self-describing file as part of
+their distribution, but they are not required to, and it is out of scope for
+this PEP to define how that may happen, if they decide to do so.</p>
+</section>
+<section id="specification">
+<h2><a class="toc-backref" href="#specification" role="doc-backlink">Specification</a></h2>
+<p>The standard Python installation description format consists of the JSON
+representation of a dictionary with the with the following keys.</p>
+<section id="schema-version">
+<h3><a class="toc-backref" href="#schema-version" role="doc-backlink">schema_version</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><code class="docutils literal notranslate"><span class="pre">number</span></code></dd>
+<dt class="field-even">Description<span class="colon">:</span></dt>
+<dd class="field-even">Version of the schema to parse the file contents. It should be
+<code class="docutils literal notranslate"><span class="pre">1</span></code> for the format described in this document. Future versions
+may add, remove, or change fields.</dd>
+</dl>
+</section>
+<section id="language">
+<h3><a class="toc-backref" href="#language" role="doc-backlink">language</a></h3>
+<p>Subsection with details related to the language specification.</p>
+<section id="version">
+<h4><a class="toc-backref" href="#version" role="doc-backlink">version</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><code class="docutils literal notranslate"><span class="pre">string</span></code></dd>
+<dt class="field-even">Description<span class="colon">:</span></dt>
+<dd class="field-even">String representation the Python language version. Same as the
+<code class="docutils literal notranslate"><span class="pre">PY_VERSION</span></code> macro on CPython.</dd>
+</dl>
+</section>
+<section id="version-parts">
+<h4><a class="toc-backref" href="#version-parts" role="doc-backlink">version_parts</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><code class="docutils literal notranslate"><span class="pre">object</span></code></dd>
+<dt class="field-even">Description<span class="colon">:</span></dt>
+<dd class="field-even">Equivalent to <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.version_info" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.version_info</span></code></a>.</dd>
+</dl>
+</section>
+</section>
+<section id="implementation">
+<h3><a class="toc-backref" href="#implementation" role="doc-backlink">implementation</a></h3>
+<p>Subsection with details related to Python implementation. While only the
+<code class="docutils literal notranslate"><span class="pre">name</span></code> key is required in this section, this section SHOULD be equivalent to
+<a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.implementation" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.implementation</span></code></a> on most implementations.</p>
+<section id="name">
+<h4><a class="toc-backref" href="#name" role="doc-backlink">name</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><code class="docutils literal notranslate"><span class="pre">string</span></code></dd>
+<dt class="field-even">Description<span class="colon">:</span></dt>
+<dd class="field-even">Lower-case name of the Python implementation.</dd>
+</dl>
+</section>
+<section id="implementation-specific-keys">
+<h4><a class="toc-backref" href="#implementation-specific-keys" role="doc-backlink">Implementation-specific keys</a></h4>
+<p>Additionally to the keys defined above, implementations may choose to include
+extra keys with extra implementation-specific details.</p>
+</section>
+</section>
+<section id="c-api">
+<h3><a class="toc-backref" href="#c-api" role="doc-backlink">c_api</a></h3>
+<p>Subsection with details related to the Python C API, if available. If the Python
+implementation does not provide a C API, this section will be missing.</p>
+<p>TODO</p>
+</section>
+<section id="libpython">
+<h3><a class="toc-backref" href="#libpython" role="doc-backlink">libpython</a></h3>
+<p>Subsection with details related to the <code class="docutils literal notranslate"><span class="pre">libpython</span></code>, if available. If the
+Python implementation does not provide a <code class="docutils literal notranslate"><span class="pre">libpython</span></code> library, this section
+will be missing.</p>
+<p>TODO</p>
+</section>
+</section>
+<section id="example">
+<h2><a class="toc-backref" href="#example" role="doc-backlink">Example</a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;schema_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.13.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version_parts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;major&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;minor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;micro&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;releaselevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;final&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;serial&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;implementation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cpython&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hexversion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cache_tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cpython-313&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;multiarch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64-linux-gnu&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;c_api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="copyright">
+<h2><a class="toc-backref" href="#copyright" role="doc-backlink">Copyright</a></h2>
+<p>This document is placed in the public domain or under the
+CC0-1.0-Universal license, whichever is more permissive.</p>
+</section>
+</section>
+<hr class="docutils" />
+<p>Source: <a class="reference external" href="https://github.com/python/peps/blob/main/peps/pep-0739.rst">https://github.com/python/peps/blob/main/peps/pep-0739.rst</a></p>
+<p>Last modified: <a class="reference external" href="https://github.com/python/peps/commits/main/peps/pep-0739.rst">2024-01-26 15:52:40 GMT</a></p>
+
+        </article>
+        <nav id="pep-sidebar">
+            <h2>Contents</h2>
+            <ul>
+<li><a class="reference internal" href="#abstract">Abstract</a></li>
+<li><a class="reference internal" href="#rationale">Rationale</a></li>
+<li><a class="reference internal" href="#scope">Scope</a></li>
+<li><a class="reference internal" href="#specification">Specification</a><ul>
+<li><a class="reference internal" href="#schema-version">schema_version</a></li>
+<li><a class="reference internal" href="#language">language</a><ul>
+<li><a class="reference internal" href="#version">version</a></li>
+<li><a class="reference internal" href="#version-parts">version_parts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementation">implementation</a><ul>
+<li><a class="reference internal" href="#name">name</a></li>
+<li><a class="reference internal" href="#implementation-specific-keys">Implementation-specific keys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#c-api">c_api</a></li>
+<li><a class="reference internal" href="#libpython">libpython</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#copyright">Copyright</a></li>
+</ul>
+
+            <br>
+            <a id="source" href="https://github.com/python/peps/blob/main/peps/pep-0739.rst">Page Source (GitHub)</a>
+        </nav>
+    </section>
+    <script src="../_static/colour_scheme.js"></script>
+    <script src="../_static/wrap_tables.js"></script>
+    <script src="../_static/sticky_banner.js"></script>
+</body>
+</html>
